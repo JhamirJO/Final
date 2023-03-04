@@ -1,5 +1,5 @@
 import cv2
-from tracker import *
+from tracker import * #así está en el video
 
 
 #Creamos el objeto de rastreo
