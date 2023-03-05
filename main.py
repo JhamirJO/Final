@@ -1,5 +1,5 @@
 import cv2
-from tracker import EuclideanDistTracker #así está en el video min 20
+from tracker import * #así está en el video min 20
 
 
 #Creamos el objeto de rastreo
