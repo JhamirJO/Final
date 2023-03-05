@@ -1,9 +1,9 @@
 import cv2
-from tracker import * #así está en el video min 20
+from tracker import *
 
 
 #Creamos el objeto de rastreo
-tracker = EuclideanDistTracker() #no recone la libreria o no sé que pasa
+tracker = EuclideanDistTracker()
 
 cap = cv2.VideoCapture("video.mp4")
 
