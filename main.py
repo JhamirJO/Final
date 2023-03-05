@@ -1,5 +1,5 @@
 import cv2
-from tracker import * #así está en el video
+from tracker import EuclideanDistTracker #así está en el video min 20
 
 
 #Creamos el objeto de rastreo
@@ -21,10 +21,10 @@ while True:
     mask = detector_objeto.apply(roi)
     _, mask = cv2.threshold(mask, 254, 255, cv2.THRESH_BINARY)
     contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    detections = []
 
 
     for cnt in contours:
-
 
         # Calculate area and remove small elements
         area = cv2.contourArea(cnt)
@@ -32,12 +32,14 @@ while True:
             cv2.drawContours(roi, [cnt], -1, (0, 255, 0), 2)
             x, y, w, h = cv2.boundingRect(cnt)
             cv2.rectangle(roi, (x, y), (x + w, y + h), (0, 255, 0), 3)
+            detections.append([x,y,w,h])
 
-
-
-
-
-
+    #obeject tracking
+    boxes_ids = tracker.update(detections)
+    for box_id in boxes_ids:
+        x, y, w, h, id = box_id
+        cv2.putText(roi, str(id), (x, y - 15), cv2.FONT_HERSHEY_PLAIN, 2, (255, 0, 0), 2)
+        cv2.rectangle(roi, (x, y), (x + w, y + h), (0, 255, 0), 3)
 
 
     cv2.imshow("Frame",frame)
